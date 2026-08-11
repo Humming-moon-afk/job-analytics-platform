@@ -15,3 +15,13 @@ def init_db():
     connection.close()
 
 init_db()
+
+def add_url(url, source):
+    connection = sqlite3.connect('jobs.db')
+    cursor = connection.cursor()
+    cursor.execute("INSERT OR IGNORE INTO job_urls (url, source) VALUES (?, ?)",
+                   (url, source))
+    connection.commit()
+    connection.close()
+
+add_url("https://example.com/job1", "LinkedIn")
