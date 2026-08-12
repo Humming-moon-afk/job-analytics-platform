@@ -21,3 +21,11 @@ def add_jobs(url, keywords, source):
     connector.close()
 
 add_jobs("https://www.linkedin.com/jobs/", "IT", "LinkedIn")
+
+def list_entries():
+    connector = sqlite3.connect('jobs_db')
+    cursor = connector.cursor()
+    print(cursor.execute("SELECT * FROM jobs").fetchall())
+    connector.commit()
+    connector.close()
+list_entries()
