@@ -1,4 +1,12 @@
 import sqlite3
+import requests
+
+
+def fetch_page(url):
+    response = requests.get(url)
+    return response.text
+
+
 def create_db():
     connector = sqlite3.connect('jobs_db')
     cursor = connector.cursor()
