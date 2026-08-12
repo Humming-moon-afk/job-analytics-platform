@@ -1,27 +1,23 @@
 import sqlite3
-
-def init_db():
-    connection = sqlite3.connect('jobs.db')
-    cursor = connection.cursor()
-    cursor.execute("""CREATE TABLE IF NOT EXISTS job_urls(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+def create_db():
+    connector = sqlite3.connect('jobs_db')
+    cursor = connector.cursor()
+    cursor.execute("""CREATE TABLE IF NOT EXISTS jobs(
+    id INTEGER PRIMARY KEY,
     url TEXT UNIQUE,
-    source TEXT,
-    status TEXT DEFAULT 'pending',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )
-    """)
-    connection.commit()
-    connection.close()
+    time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    keywords TEXT,
+    source TEXT
+    )""")
+    connector.commit()
+    connector.close()
+create_db()
 
-init_db()
+def add_jobs(url, keywords, source):
+    connector = sqlite3.connect('jobs_db')
+    cursor = connector.cursor()
+    cursor.execute("INSERT OR IGNORE INTO jobs (url, keywords, source) VALUES(?, ?, ?)", (url, keywords, source))
+    connector.commit()
+    connector.close()
 
-def add_url(url, source):
-    connection = sqlite3.connect('jobs.db')
-    cursor = connection.cursor()
-    cursor.execute("INSERT OR IGNORE INTO job_urls (url, source) VALUES (?, ?)",
-                   (url, source))
-    connection.commit()
-    connection.close()
-
-add_url("https://example.com/job1", "LinkedIn")
+add_jobs("https://www.linkedin.com/jobs/", "IT", "LinkedIn")
