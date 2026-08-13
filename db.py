@@ -1,6 +1,10 @@
 import sqlite3
 import requests
+from bs4 import BeautifulSoup
 
+def parse_jobs(html_text):
+    soup = BeautifulSoup(html_text, 'html.parser')
+    return soup.find_all('a')
 
 def fetch_page(url):
     response = requests.get(url)
