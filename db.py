@@ -49,3 +49,7 @@ def run_scraper(url):
         if link:
             title = tag.text
             add_jobs(link, title, "Web")
+
+
+run_scraper("https://python.org")
+list_entries()
