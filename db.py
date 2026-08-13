@@ -10,7 +10,7 @@ def fetch_page(url):
     headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
     }
-    response = requests.get(url)
+    response = requests.get(url, headers=headers)
     return response.text
 
 
@@ -49,8 +49,8 @@ def run_scraper(url):
     tags = parse_jobs(result)
     for tag in tags:
         link = tag.get('href')
-        if link:
-            title = tag.text
+        if link != None and link in ('/jobs/view/'):
+            title = tag.text.strip()
             add_jobs(link, title, "Web")
 
 
