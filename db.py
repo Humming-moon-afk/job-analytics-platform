@@ -49,7 +49,7 @@ def run_scraper(url):
     tags = parse_jobs(result)
     for tag in tags:
         link = tag.get('href')
-        if link != None and link in ('/jobs/view/'):
+        if link != None and ('/jobs/view/') in link :
             title = tag.text.strip()
             add_jobs(link, title, "Web")
 
