@@ -12,7 +12,7 @@ def fetch_page(url):
 
 
 def create_db():
-    connector = sqlite3.connect('jobs_db')
+    connector = sqlite3.connect('jobs.db')
     cursor = connector.cursor()
     cursor.execute("""CREATE TABLE IF NOT EXISTS jobs(
     id INTEGER PRIMARY KEY,
@@ -25,7 +25,7 @@ def create_db():
     connector.close()
 
 def add_jobs(url, keywords, source):
-    connector = sqlite3.connect('jobs_db')
+    connector = sqlite3.connect('jobs.db')
     cursor = connector.cursor()
     cursor.execute("INSERT OR IGNORE INTO jobs (url, keywords, source) VALUES(?, ?, ?)", (url, keywords, source))
     connector.commit()
@@ -33,7 +33,7 @@ def add_jobs(url, keywords, source):
 
 
 def list_entries():
-    connector = sqlite3.connect('jobs_db')
+    connector = sqlite3.connect('jobs.db')
     cursor = connector.cursor()
     print(cursor.execute("SELECT * FROM jobs").fetchall())
     connector.commit()
