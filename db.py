@@ -7,6 +7,9 @@ def parse_jobs(html_text):
     return soup.find_all('a')
 
 def fetch_page(url):
+    headers = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+    }
     response = requests.get(url)
     return response.text
 
@@ -51,5 +54,5 @@ def run_scraper(url):
             add_jobs(link, title, "Web")
 
 
-run_scraper("https://python.org")
+run_scraper("https://www.linkedin.com/jobs/search?keywords=Werkstudent")
 list_entries()
