@@ -41,3 +41,14 @@ def list_entries():
     connector.commit()
     connector.close()
 list_entries()
+
+
+def run_scraper(url):
+    create_db()
+    result = fetch_page(url)
+    tags = parse_jobs(result)
+    for tag in tags:
+        link = tag.get('href')
+        if link:
+            title = tag.text
+            add_jobs(link, title, "Web")
