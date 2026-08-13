@@ -23,7 +23,6 @@ def create_db():
     )""")
     connector.commit()
     connector.close()
-create_db()
 
 def add_jobs(url, keywords, source):
     connector = sqlite3.connect('jobs_db')
@@ -32,7 +31,6 @@ def add_jobs(url, keywords, source):
     connector.commit()
     connector.close()
 
-add_jobs("https://www.linkedin.com/jobs/", "IT", "LinkedIn")
 
 def list_entries():
     connector = sqlite3.connect('jobs_db')
@@ -40,7 +38,6 @@ def list_entries():
     print(cursor.execute("SELECT * FROM jobs").fetchall())
     connector.commit()
     connector.close()
-list_entries()
 
 
 def run_scraper(url):
